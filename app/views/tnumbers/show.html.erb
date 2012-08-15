@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Voicenumber:</b>
+  <%= @tnumber.voicenumber %>
+</p>
+
+<p>
+  <b>Sortnumber:</b>
+  <%= @tnumber.sortnumber %>
+</p>
+
+<p>
+  <b>Block:</b>
+  <%= @tnumber.block %>
+</p>
+
+
+<%= link_to 'Edit', edit_tnumber_path(@tnumber) %> |
+<%= link_to 'Back', tnumbers_path %>

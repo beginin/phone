@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  voicenumber: 1
+  sortnumber: 1
+  block: false
+
+two:
+  voicenumber: 1
+  sortnumber: 1
+  block: false

@@ -1,4 +1,6 @@
 Phone::Application.routes.draw do
+  resources :tnumbers
+
   resources :tarifs
 
   # The priority is based upon order of creation:
