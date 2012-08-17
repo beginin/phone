@@ -1,4 +1,6 @@
 Phone::Application.routes.draw do
+  resources :sims
+
   get "page/main"
 
   get "page/help"
