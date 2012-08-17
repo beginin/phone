@@ -4,7 +4,7 @@ class CreateTnumbers < ActiveRecord::Migration
       t.integer :voicenumber
       t.integer :sortnumber
       t.boolean :block
-
+      t.integet :tarif_id
       t.timestamps
     end
   end
