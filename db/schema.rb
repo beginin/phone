@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(:version => 20120815073309) do
     t.integer  "voicenumber"
     t.integer  "sortnumber"
     t.boolean  "block"
+    t.integer  "tarif_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end

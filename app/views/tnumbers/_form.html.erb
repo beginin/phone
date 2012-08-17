@@ -23,6 +23,10 @@
     <%= f.label :block %><br />
     <%= f.check_box :block %>
   </div>
+  <div class="field">
+    <%= f.label :user %><br />
+    <%= f.collection_select(:tarif_id, Tarif.all, :id, :name) %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>
