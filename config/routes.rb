@@ -1,4 +1,10 @@
 Phone::Application.routes.draw do
+  get "page/main"
+
+  get "page/help"
+
+  get "page/about"
+
   resources :tnumbers
 
   resources :tarifs
