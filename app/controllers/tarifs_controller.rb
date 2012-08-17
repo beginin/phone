@@ -14,7 +14,7 @@ class TarifsController < ApplicationController
   # GET /tarifs/1.json
   def show
     @tarif = Tarif.find(params[:id])
-
+    @tnumbers =  @tarif.tnumber
     respond_to do |format|
       format.html # show.html.erb
       format.json { render :json => @tarif }
