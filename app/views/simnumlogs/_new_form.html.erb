@@ -1,0 +1,32 @@
+<%= form_for(@simnumlog) do |f| %>
+  <% if @simnumlog.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@simnumlog.errors.count, "error") %> prohibited this simnumlog from being saved:</h2>
+
+      <ul>
+      <% @simnumlog.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :tnumber_id %><br />
+    <%= f.collection_select(:tnumber_id,  Tnumber.where(:id =>Tnumber.freetnumbers_id), :id, :voicenumber) %>
+  </div>
+
+  <div class="field">
+    <%= f.label :sim_id %><br />
+    <%= f.collection_select(:sim_id,  Sim.where(:id =>Sim.freesims_id), :id, :sirealnumber) %>
+  </div>
+
+  <div class="field">
+    <%= f.label :simperiod_id %><br />
+    <%= f.datetime_select :simperiod_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+

@@ -8,13 +8,16 @@
     <th></th>
     <th></th>
     <th></th>
+    <th></th>
   </tr>
 
 <% @simnumlogs.each do |simnumlog| %>
   <tr>
-    <td><%= simnumlog.tnumber_id %></td>
-    <td><%= simnumlog.sim_id %></td>
+    <td><%= simnumlog.tnumber.voicenumber %></td>
+    <td><%= simnumlog.sim.sirealnumber %></td>
     <td><%= simnumlog.simperiod_id %></td>
+    <td><%= simnumlog.simperiod.datein %></td>
+    <td><%= simnumlog.simperiod.dateout %></td>
     <td><%= link_to 'Show', simnumlog %></td>
     <td><%= link_to 'Edit', edit_simnumlog_path(simnumlog) %></td>
     <td><%= link_to 'Destroy', simnumlog, :method => :delete, :data => { :confirm => 'Are you sure?' } %></td>

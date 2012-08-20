@@ -3,7 +3,6 @@ class SimnumlogsController < ApplicationController
   # GET /simnumlogs.json
   def index
     @simnumlogs = Simnumlog.all
-
     respond_to do |format|
       format.html # index.html.erb
       format.json { render :json => @simnumlogs }
@@ -25,7 +24,7 @@ class SimnumlogsController < ApplicationController
   # GET /simnumlogs/new.json
   def new
     @simnumlog = Simnumlog.new
-    #@sim =
+    #@simperiod = Simperiod.new
     #@tnumber
     respond_to do |format|
       format.html # new.html.erb
@@ -41,11 +40,17 @@ class SimnumlogsController < ApplicationController
   # POST /simnumlogs
   # POST /simnumlogs.json
   def create
-    @simnumlog = Simnumlog.new(params[:simnumlog])
-
+    @simnumlog = Simnumlog.new(:sim_id => params[:simnumlog][:sim_id],:tnumber_id => params[:simnumlog][:tnumber_id])
+    date = params[:simnumlog]["simperiod_id(1i)"] + '-'
+    date = date + params[:simnumlog]["simperiod_id(2i)"].to_s + '-'
+    date = date + params[:simnumlog]["simperiod_id(3i)"].to_s + ' '
+    date = date + params[:simnumlog]["simperiod_id(4i)"].to_s + ':'
+    date = date + params[:simnumlog]["simperiod_id(5i)"].to_s
+    @simperiod = Simperiod.create(:datein => date) 
+    @simnumlog.simperiod_id = @simperiod.id
     respond_to do |format|
-      if @simnumlog.save
-        format.html { redirect_to @simnumlog, :notice => 'Simnumlog was successfully created.' }
+    if @simnumlog.save
+        format.html { redirect_to @simnumlog, :notice => date}
         format.json { render :json => @simnumlog, :status => :created, :location => @simnumlog }
       else
         format.html { render :action => "new" }
