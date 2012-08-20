@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  tnumber_id: 1
+  sim_id: 1
+  simperiod_id: 1
+
+two:
+  tnumber_id: 1
+  sim_id: 1
+  simperiod_id: 1

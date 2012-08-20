@@ -1,4 +1,6 @@
 Phone::Application.routes.draw do
+  resources :simnumlogs
+
   resources :sims
 
   get "page/main"

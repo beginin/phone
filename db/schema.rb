@@ -10,7 +10,22 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120817053453) do
+ActiveRecord::Schema.define(:version => 20120817064007) do
+
+  create_table "simnumlogs", :force => true do |t|
+    t.integer  "tnumber_id"
+    t.integer  "sim_id"
+    t.integer  "simperiod_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  create_table "simperiods", :force => true do |t|
+    t.datetime "datein"
+    t.datetime "dateout"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "sims", :force => true do |t|
     t.string   "sirealnumber"
