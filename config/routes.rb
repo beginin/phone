@@ -1,4 +1,6 @@
 Phone::Application.routes.draw do
+  resources :operators
+
   resources :schedules
 
   resources :cfus
