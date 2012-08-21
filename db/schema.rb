@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120821043700) do
+ActiveRecord::Schema.define(:version => 20120821045137) do
 
   create_table "simnumlogs", :force => true do |t|
     t.integer  "tnumber_id"
@@ -31,6 +31,13 @@ ActiveRecord::Schema.define(:version => 20120821043700) do
     t.string   "sirealnumber"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+  end
+
+  create_table "sumlimits", :force => true do |t|
+    t.string   "namelimit"
+    t.decimal  "money"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "tarifs", :force => true do |t|

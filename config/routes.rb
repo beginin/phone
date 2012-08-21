@@ -1,4 +1,6 @@
 Phone::Application.routes.draw do
+  resources :sumlimits
+
   resources :users
 
   resources :simnumlogs
