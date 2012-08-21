@@ -1,4 +1,6 @@
 Phone::Application.routes.draw do
+  resources :schedules
+
   resources :cfus
 
   resources :sumlimits
