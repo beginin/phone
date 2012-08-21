@@ -1,4 +1,6 @@
 Phone::Application.routes.draw do
+  resources :userlogs
+
   resources :operators
 
   resources :schedules

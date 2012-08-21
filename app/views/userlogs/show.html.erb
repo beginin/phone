@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @userlog.user_id %>
+</p>
+
+<p>
+  <b>Cfu:</b>
+  <%= @userlog.cfu_id %>
+</p>
+
+<p>
+  <b>Sumlimit:</b>
+  <%= @userlog.sumlimit_id %>
+</p>
+
+<p>
+  <b>Schedule:</b>
+  <%= @userlog.schedule_id %>
+</p>
+
+<p>
+  <b>Userperiod:</b>
+  <%= @userlog.userperiod_id %>
+</p>
+
+<p>
+  <b>Sim:</b>
+  <%= @userlog.sim_id %>
+</p>
+
+<p>
+  <b>Operator:</b>
+  <%= @userlog.operator_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_userlog_path(@userlog) %> |
+<%= link_to 'Back', userlogs_path %>

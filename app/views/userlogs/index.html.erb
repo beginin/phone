@@ -1,0 +1,35 @@
+<h1>Listing userlogs</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Cfu</th>
+    <th>Sumlimit</th>
+    <th>Schedule</th>
+    <th>Userperiod</th>
+    <th>Sim</th>
+    <th>Operator</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @userlogs.each do |userlog| %>
+  <tr>
+    <td><%= userlog.user_id %></td>
+    <td><%= userlog.cfu_id %></td>
+    <td><%= userlog.sumlimit_id %></td>
+    <td><%= userlog.schedule_id %></td>
+    <td><%= userlog.userperiod_id %></td>
+    <td><%= userlog.sim_id %></td>
+    <td><%= userlog.operator_id %></td>
+    <td><%= link_to 'Show', userlog %></td>
+    <td><%= link_to 'Edit', edit_userlog_path(userlog) %></td>
+    <td><%= link_to 'Destroy', userlog, :method => :delete, :data => { :confirm => 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Userlog', new_userlog_path %>

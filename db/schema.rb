@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120821071616) do
+ActiveRecord::Schema.define(:version => 20120821072747) do
 
   create_table "cfus", :force => true do |t|
     t.string   "namecfu"
@@ -73,6 +73,18 @@ ActiveRecord::Schema.define(:version => 20120821071616) do
     t.integer  "tarif_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "userlogs", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "cfu_id"
+    t.integer  "sumlimit_id"
+    t.integer  "schedule_id"
+    t.integer  "userperiod_id"
+    t.integer  "sim_id"
+    t.integer  "operator_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "userperiods", :force => true do |t|
