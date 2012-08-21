@@ -16,13 +16,13 @@
 
 <% @userlogs.each do |userlog| %>
   <tr>
-    <td><%= userlog.user_id %></td>
-    <td><%= userlog.cfu_id %></td>
-    <td><%= userlog.sumlimit_id %></td>
+    <td><%= userlog.user.secondname %></td>
+    <td><%= userlog.cfu.namecfu %></td>
+    <td><%= userlog.sumlimit.namelimit %></td>
     <td><%= userlog.schedule_id %></td>
     <td><%= userlog.userperiod_id %></td>
     <td><%= userlog.sim_id %></td>
-    <td><%= userlog.operator_id %></td>
+    <td><%= userlog.operator.opername %></td>
     <td><%= link_to 'Show', userlog %></td>
     <td><%= link_to 'Edit', edit_userlog_path(userlog) %></td>
     <td><%= link_to 'Destroy', userlog, :method => :delete, :data => { :confirm => 'Are you sure?' } %></td>

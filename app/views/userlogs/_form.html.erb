@@ -17,15 +17,15 @@
   </div>
   <div class="field">
     <%= f.label :cfu_id %><br />
-    <%= f.number_field :cfu_id %>
+    <%= f.collection_select(:cfu_id, Cfu.all, :id, :namecfu) %>
   </div>
   <div class="field">
     <%= f.label :sumlimit_id %><br />
-    <%= f.number_field :sumlimit_id %>
+    <%= f.collection_select(:sumlimit_id, Sumlimit.all, :id, :namelimit) %>
   </div>
   <div class="field">
     <%= f.label :schedule_id %><br />
-    <%= f.number_field :schedule_id %>
+    <%= f.collection_select(:schedule_id, Schedule.all, :id, :timein ) %>
   </div>
   <div class="field">
     <%= f.label :userperiod_id %><br />
@@ -37,7 +37,7 @@
   </div>
   <div class="field">
     <%= f.label :operator_id %><br />
-    <%= f.number_field :operator_id %>
+    <%= f.collection_select(:operator_id, Operator.all, :id, :opername) %>
   </div>
   <div class="actions">
     <%= f.submit %>
