@@ -1,6 +1,7 @@
 class Sim < ActiveRecord::Base
   attr_accessible :sirealnumber
   has_many :simnumlog
+  has_many :userlog
   def self.freesims_id
     simactive = Simnumlog.select(:sim_id).joins(:simperiod).where("'simperiods'.'dateout'  IS NULL ")
     sa_id=Array.new
