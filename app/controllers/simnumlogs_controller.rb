@@ -86,4 +86,13 @@ class SimnumlogsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  def endperiod
+    @simnumlog = Simnumlog.find(params[:id])
+    @simnumlog.simperiod.dateout=Time.now
+    @simnumlog.simperiod.save
+    respond_to do |format|
+      format.html { redirect_to simnumlogs_url }
+      format.json { head :no_content }
+    end
+  end
 end
