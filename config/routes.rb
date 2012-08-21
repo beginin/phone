@@ -1,4 +1,6 @@
 Phone::Application.routes.draw do
+  resources :users
+
   resources :simnumlogs
 
   resources :sims
