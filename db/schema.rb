@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120821071040) do
+ActiveRecord::Schema.define(:version => 20120821071616) do
 
   create_table "cfus", :force => true do |t|
     t.string   "namecfu"
@@ -73,6 +73,13 @@ ActiveRecord::Schema.define(:version => 20120821071040) do
     t.integer  "tarif_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "userperiods", :force => true do |t|
+    t.datetime "datein"
+    t.datetime "dateout"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "users", :force => true do |t|
