@@ -1,0 +1,35 @@
+<%= form_for @userperiod do |cf| %>
+  <%= cf.fields_for :userlog do |f| %>
+  <div class="field">
+    <%= f.label :user_id %><br />
+    <%= f.collection_select(:user_id, User.all, :id, :secondname ) %>
+  </div>
+  <div class="field">
+    <%= f.label :cfu_id %><br />
+    <%= f.collection_select(:cfu_id, Cfu.all, :id, :namecfu) %>
+  </div>
+  <div class="field">
+    <%= f.label :sumlimit_id %><br />
+    <%= f.collection_select(:sumlimit_id, Sumlimit.all, :id, :namelimit) %>
+  </div>
+  <div class="field">
+    <%= f.label :schedule_id %><br />
+    <%= f.collection_select(:schedule_id, Schedule.all, :id, :timein ) %>
+  </div>
+  <div class="field">
+    <%= f.label :sim_id %><br />
+    <%= f.collection_select(:sim_id, Sim.all, :id, :sirealnumber ) %>
+  </div>
+  <div class="field">
+    <%= f.label :operator_id %><br />
+    <%= f.collection_select(:operator_id, Operator.all, :id, :opername) %>
+  </div>
+  <% end %>
+  <div class="field">
+    <%= cf.label :datein %><br />
+    <%= cf.datetime_select :datein %>
+  </div>
+  <div class="actions">
+    <%= cf.submit %>
+  </div>
+<% end %>
