@@ -24,8 +24,10 @@ class UserlogsController < ApplicationController
   # GET /userlogs/new
   # GET /userlogs/new.json
   def new
-    @userlog = Userlog.new
-
+    #@userlog = Userlog.new
+    @userperiod = Userperiod.new
+    @userperiod.userlog.build
+    
     respond_to do |format|
       format.html # new.html.erb
       format.json { render :json => @userlog }
@@ -40,8 +42,9 @@ class UserlogsController < ApplicationController
   # POST /userlogs
   # POST /userlogs.json
   def create
-    @userlog = Userlog.new(params[:userlog])
-
+    logger.debug params
+    @userperiod = Userperiod.new(params[:userperiod])
+    #@userlog = Userlog.new(params[:userlog])
     respond_to do |format|
       if @userlog.save
         format.html { redirect_to @userlog, :notice => 'Userlog was successfully created.' }

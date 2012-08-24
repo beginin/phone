@@ -1,4 +1,4 @@
-<%= form_for @userperiod do |cf| %>
+<%= form_for @userperiod, :url => '/userlogs/', userlogs_path => false do |cf| %>
   <%= cf.fields_for :userlog do |f| %>
   <div class="field">
     <%= f.label :user_id %><br />
