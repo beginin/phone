@@ -3,11 +3,12 @@ class Tnumber < ActiveRecord::Base
   belongs_to :tarif
   has_many :simnumlog
 
-  validates :voicenumber, :tarif_id, :presence => true
-  validates :voicenumber, :length => { :is => 10 }
-  validates :voicenumber, :numericality => { :only_integer => true }
-  validates :voicenumber, :uniqueness => true
+  validates :voicenumber, :presence => true, 
+                          :length => { :is => 10 }, 
+                          :numericality => { :only_integer => true }, 
+                          :uniqueness => true
   validates :sortnumber, :uniqueness => true, :length => { :is => 7 }, :allow_blank => true
+  validates :tarif_id, :presence => true
   def self.freetnumbers_id
     tnumberactive = Simnumlog.select(:tnumber_id).joins(:simperiod).where("'simperiods'.'dateout'  IS NULL ")
     ta_id=Array.new
