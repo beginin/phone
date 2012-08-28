@@ -6,4 +6,5 @@ class Userlog < ActiveRecord::Base
   belongs_to :schedule
   belongs_to :userperiod
   belongs_to :operator
+
 end

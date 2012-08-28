@@ -27,7 +27,7 @@ class UserlogsController < ApplicationController
     #@userlog = Userlog.new
     @userperiod = Userperiod.new
     @userperiod.userlog.build
-    
+    @userperiod.datein = Time.zone.now
     respond_to do |format|
       format.html # new.html.erb
       format.json { render :json => @userlog }
@@ -44,10 +44,11 @@ class UserlogsController < ApplicationController
   def create
     logger.debug params
     @userperiod = Userperiod.new(params[:userperiod])
+    
     #@userlog = Userlog.new(params[:userlog])
     respond_to do |format|
-      if @userlog.save
-        format.html { redirect_to @userlog, :notice => 'Userlog was successfully created.' }
+      if @userperiod.save
+        format.html { redirect_to Userlog, :notice => 'Userlog was successfully created.' }
         format.json { render :json => @userlog, :status => :created, :location => @userlog }
       else
         format.html { render :action => "new" }
