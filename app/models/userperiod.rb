@@ -3,6 +3,8 @@ class Userperiod < ActiveRecord::Base
   has_many :userlog
   accepts_nested_attributes_for :userlog
 
+  validates :datein, :presence => true
+
   def datein_text 
   	datein.try (:strftime, "%Y-%m-%d %H:%M")
   end

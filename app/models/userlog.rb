@@ -7,4 +7,6 @@ class Userlog < ActiveRecord::Base
   belongs_to :userperiod
   belongs_to :operator
 
+  validates :user,:sumlimit,:cfu,:schedule,:sim_id,:operator , :presence => true
+
 end
