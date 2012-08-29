@@ -1,5 +1,5 @@
 class Userperiod < ActiveRecord::Base
-  attr_accessible :datein, :dateout, :datein_text, :userlog_attributes
+  attr_accessible :datein, :dateout, :datein_text, :userlog_attributes, :endperiod
   has_many :userlog
   accepts_nested_attributes_for :userlog
 
@@ -27,5 +27,9 @@ class Userperiod < ActiveRecord::Base
   	#logger.debug "Досвидание: #{YAML::dump(userlog.build(p))}"
   	 userlog.build(attributes)
   #end
+  end
+
+  def endperiod
+    self.dateout = Time.zone.now if self.dateout.blank?
   end
 end

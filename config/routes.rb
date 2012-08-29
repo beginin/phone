@@ -26,6 +26,7 @@ Phone::Application.routes.draw do
   resources :tarifs
 
   match '/simnumlogs/:id/endperiod' => 'simnumlogs#endperiod', :as => :endperiod_simnumlog
+  match '/userlogs/:id/endperiod' => 'userlogs#endperiod', :as => :endperiod_userlog
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

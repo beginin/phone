@@ -84,4 +84,15 @@ class UserlogsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def endperiod
+    @userlog=Userlog.find(params[:id])
+    @userlog.userperiod.endperiod
+    logger.debug "Привет #{@userlog.userperiod.endperiod}"
+    @userlog.userperiod.save
+    respond_to do |format|
+      format.html { redirect_to userlogs_url }
+      format.json { head :no_content }
+    end
+  end
 end

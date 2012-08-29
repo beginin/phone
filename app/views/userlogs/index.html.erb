@@ -7,6 +7,7 @@
     <th>Sumlimit</th>
     <th>Schedule</th>
     <th>Userperiod</th>
+    <th>Userperiod</th>
     <th>Sim</th>
     <th>Operator</th>
     <th></th>
@@ -19,13 +20,15 @@
     <td><%= userlog.user.secondname %></td>
     <td><%= userlog.cfu.namecfu %></td>
     <td><%= userlog.sumlimit.namelimit %></td>
-    <td><%= userlog.schedule_id %></td>
-    <td><%= userlog.userperiod_id %></td>
+    <td><%= userlog.schedule.timein %> <%= userlog.schedule.timeout %></td>
+    <td><%= userlog.userperiod.datein %></td>
+    <td><%= userlog.userperiod.dateout %></td>
     <td><%= userlog.sim_id %></td>
     <td><%= userlog.operator.opername %></td>
     <td><%= link_to 'Show', userlog %></td>
     <td><%= link_to 'Edit', edit_userlog_path(userlog) %></td>
     <td><%= link_to 'Destroy', userlog, :method => :delete, :data => { :confirm => 'Are you sure?' } %></td>
+    <td><%= link_to 'Endperiod', endperiod_userlog_path(userlog), :data => { :confirm => 'Вы действительно хотите закрыть связь?' } %></td>
   </tr>
 <% end %>
 </table>

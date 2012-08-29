@@ -18,7 +18,7 @@
   </div>
   <div class="field">
     <%= f.label :sim_id %><br />
-    <%= f.collection_select(:sim_id, Sim.all, :id, :sirealnumber ) %>
+    <%= f.collection_select(:sim_id, Sim.where(:id =>Sim.notusesim_id), :id, :sirealnumber ) %>
   </div>
   <div class="field">
     <%= f.label :operator_id %><br />
