@@ -10,12 +10,28 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120821072747) do
+ActiveRecord::Schema.define(:version => 20120830092008) do
 
   create_table "cfus", :force => true do |t|
     t.string   "namecfu"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "colllogs", :force => true do |t|
+    t.integer  "load_id"
+    t.datetime "date"
+    t.decimal  "duration"
+    t.decimal  "coast"
+    t.integer  "tnumber_out"
+    t.integer  "tnumber_in"
+    t.integer  "typecall_id"
+    t.integer  "decriptioncall_id"
+    t.integer  "typeconnect_id"
+    t.integer  "base"
+    t.decimal  "valuemb"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   create_table "operators", :force => true do |t|
