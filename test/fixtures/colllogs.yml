@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  load_id: 1
+  date: 2012-08-30 17:20:08
+  duration: 9.99
+  coast: 9.99
+  tnumber_out: 1
+  tnumber_in: 1
+  typecall_id: 1
+  decriptioncall_id: 1
+  typeconnect_id: 1
+  base: 1
+  valuemb: 9.99
+
+two:
+  load_id: 1
+  date: 2012-08-30 17:20:08
+  duration: 9.99
+  coast: 9.99
+  tnumber_out: 1
+  tnumber_in: 1
+  typecall_id: 1
+  decriptioncall_id: 1
+  typeconnect_id: 1
+  base: 1
+  valuemb: 9.99
