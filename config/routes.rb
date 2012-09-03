@@ -1,4 +1,6 @@
 Phone::Application.routes.draw do
+  get "upload/upload"
+
   resources :userlogs
   
   resources :operators
