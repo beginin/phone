@@ -1,0 +1,20 @@
+<h1>Журнал звонков</h1>
+
+
+<table>
+  <tr>
+    <th>Namecfu</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @calllog.each do |c| %>
+  <tr>
+    <td><%= c.tnumber %></td>
+    <td><%= c.coast %></td>
+    <td><%= c.duration.to_s(:time) %></td>
+
+  </tr>
+<% end %>
+</table>

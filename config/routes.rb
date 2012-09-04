@@ -1,5 +1,4 @@
 Phone::Application.routes.draw do
-  get "upload/upload"
 
   resources :userlogs
   
@@ -26,7 +25,7 @@ Phone::Application.routes.draw do
   resources :tnumbers
 
   resources :tarifs
-
+  match '/calllogs/' => 'calllogs#index', :via => :get
   match '/upload/' => 'upload#index', :via => :get
   match '/upload/' => 'upload#upload', :via => :post
   match '/simnumlogs/:id/endperiod' => 'simnumlogs#endperiod', :as => :endperiod_simnumlog
