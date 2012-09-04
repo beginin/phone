@@ -27,8 +27,8 @@ Phone::Application.routes.draw do
 
   resources :tarifs
 
-  match '/upload/' => 'upload#index'
-  match '/upload/' => 'upload#upload'
+  match '/upload/' => 'upload#index', :via => :get
+  match '/upload/' => 'upload#upload', :via => :post
   match '/simnumlogs/:id/endperiod' => 'simnumlogs#endperiod', :as => :endperiod_simnumlog
   match '/userlogs/:id/endperiod' => 'userlogs#endperiod', :as => :endperiod_userlog
   # The priority is based upon order of creation:
