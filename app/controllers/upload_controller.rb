@@ -1,6 +1,6 @@
 class UploadController < ApplicationController
   def upload
-  	post = DataFile.save(params[:upload])
+  	post = Colllog.save(params[:upload])
   end
 
   def index
