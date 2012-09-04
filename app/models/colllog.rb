@@ -21,6 +21,7 @@ class Colllog < ActiveRecord::Base
     #logger.debug "Привет #{utf8_encoded_content}"
     csvarray = FasterCSV.parse(utf8_encoded_content, :col_sep => ';')
     csvarray.delete(csvarray.first)
+    load=Load.create(:admin => "1")
     csvarray.each do |row|
     	n=Colllog.new
     	n.tnumber = row[2]
@@ -34,6 +35,7 @@ class Colllog < ActiveRecord::Base
     	n.typeconnect_text = row[12]
     	n.base = row[13]
     	n.valuemb = row[14]
+      n.load_id = load
     	n.save
     end
     #File.open(path, "wb") { |f| f.write(utf8_encoded_content) }
