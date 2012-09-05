@@ -5,14 +5,14 @@ class CreateColllogs < ActiveRecord::Migration
       t.integer :load_id
       t.datetime :date
       t.time :duration 
-      t.decimal :coast ,:precision => 8, :scale => 2
-      t.integer :tnumber_out , :limit => 8
-      t.integer :tnumber_in , :limit => 8
+      t.decimal :coast ,:precision => 15, :scale => 4
+      t.column  :tnumber_out, 'BIGINT'
+      t.column  :tnumber_in, 'BIGINT'
       t.integer :typecall_id
       t.integer :descriptioncall_id
       t.integer :typeconnect_id
       t.integer :base
-      t.decimal :valuemb ,:precision => 8, :scale => 2
+      t.decimal :valuemb ,:precision => 15, :scale => 4
 
       t.timestamps
     end

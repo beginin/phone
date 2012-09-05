@@ -1,5 +1,13 @@
 Phone::Application.routes.draw do
 
+  get "descriptioncalls/index"
+
+  get "descriptioncalls/show"
+
+  get "descriptioncalls/edit"
+
+  get "descriptioncalls/update"
+
   resources :userlogs
   
   resources :operators
