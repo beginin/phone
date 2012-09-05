@@ -11,6 +11,8 @@ gem 'json'
 gem 'ruby-debug'
 gem  'charlock_holmes'
 gem  'fastercsv'
+gem 'pg'
+#gem 'postgres_ext'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

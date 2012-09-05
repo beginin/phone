@@ -21,7 +21,8 @@ class Colllog < ActiveRecord::Base
     #logger.debug "Привет #{utf8_encoded_content}"
     csvarray = FasterCSV.parse(utf8_encoded_content, :col_sep => ';')
     csvarray.delete(csvarray.first)
-    load=Load.create(:admin => "1")
+    load=Load.create(:admin => "Admin") 
+
     csvarray.each do |row|
     	n=Colllog.new
     	n.tnumber = row[2]

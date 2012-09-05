@@ -19,20 +19,20 @@ ActiveRecord::Schema.define(:version => 20120830095801) do
   end
 
   create_table "colllogs", :force => true do |t|
-    t.integer  "tnumber"
+    t.decimal  "tnumber",            :precision => 11, :scale => 0
     t.integer  "load_id"
     t.datetime "date"
     t.time     "duration"
-    t.decimal  "coast",              :precision => 8, :scale => 2
-    t.integer  "tnumber_out"
-    t.integer  "tnumber_in"
+    t.decimal  "coast",              :precision => 8,  :scale => 2
+    t.decimal  "tnumber_out",        :precision => 11, :scale => 0
+    t.decimal  "tnumber_in",         :precision => 11, :scale => 0
     t.integer  "typecall_id"
     t.integer  "descriptioncall_id"
     t.integer  "typeconnect_id"
     t.integer  "base"
-    t.decimal  "valuemb",            :precision => 8, :scale => 2
-    t.datetime "created_at",                                       :null => false
-    t.datetime "updated_at",                                       :null => false
+    t.decimal  "valuemb",            :precision => 8,  :scale => 2
+    t.datetime "created_at",                                        :null => false
+    t.datetime "updated_at",                                        :null => false
   end
 
   create_table "descriptioncalls", :force => true do |t|
