@@ -1,29 +1,17 @@
 Phone::Application.routes.draw do
 
-  get "descriptioncalls/index"
-
   get "descriptioncalls/show"
 
-  get "descriptioncalls/edit"
 
   get "descriptioncalls/update"
-
   resources :userlogs
-  
   resources :operators
-
   resources :schedules
-
   resources :cfus
-
   resources :sumlimits
-
   resources :users
-
   resources :simnumlogs
-
   resources :sims
-
   get "page/main"
 
   get "page/help"
@@ -33,6 +21,8 @@ Phone::Application.routes.draw do
   resources :tnumbers
 
   resources :tarifs
+  match '/descriptioncalls/' => 'descriptioncalls#index'
+  match '/descriptioncalls/:id' =>  'descriptioncalls#edit', :as => :edit_descriptioncalls
   match '/calllogs/' => 'calllogs#index', :via => :get
   match '/upload/' => 'upload#index', :via => :get
   match '/upload/' => 'upload#upload', :via => :post

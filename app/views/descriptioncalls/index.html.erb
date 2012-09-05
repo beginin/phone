@@ -1,2 +1,20 @@
-<h1>Descriptioncalls#index</h1>
-<p>Find me in app/views/descriptioncalls/index.html.erb</p>
+<h1>Описание звонка</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    
+  </tr>
+
+<% @descriptioncall.each do |f| %>
+  <tr>
+    <td><%= f.name %></td>
+    <td><%= f.fin %></td>
+    <td><%= link_to 'Edit', edit_descriptioncalls_path(f) %></td>
+    
+  </tr>
+<% end %>
+</table>
+
+<br />

@@ -28,7 +28,7 @@ class Colllog < ActiveRecord::Base
     	n.tnumber = row[2]
     	n.date = row[3].gsub("/",".") + " " + row[4]
     	n.duration = row[5]
-    	n.coast = row[7]
+    	n.coast = row[7].gsub(",",".")
     	n.tnumber_out = row[8]
     	n.tnumber_in = row[9]
     	n.typecall_text = row[10]
