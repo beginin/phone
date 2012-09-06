@@ -21,8 +21,10 @@ Phone::Application.routes.draw do
   resources :tnumbers
 
   resources :tarifs
-  match '/descriptioncalls/' => 'descriptioncalls#index'
-  match '/descriptioncalls/:id' =>  'descriptioncalls#edit', :as => :edit_descriptioncalls
+  resources :descriptioncalls
+  #match '/descriptioncalls/' => 'descriptioncalls#index',:as => :descriptioncall , :via => :get
+  #match '/descriptioncalls/:id' =>  'descriptioncalls#edit', :as => :edit_descriptioncall , :via => :get
+  #match '/descriptioncalls/:id' => 'descriptioncalls#update', :via => :put
   match '/calllogs/' => 'calllogs#index', :via => :get
   match '/upload/' => 'upload#index', :via => :get
   match '/upload/' => 'upload#upload', :via => :post

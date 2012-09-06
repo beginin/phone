@@ -1,6 +1,6 @@
 class DescriptioncallsController < ApplicationController
   def index
-  	@descriptioncall = Descriptioncall.all
+  	@descriptioncall = Descriptioncall.find(:all, :order => 'name ASC')
   end
 
   def show
@@ -11,5 +11,14 @@ class DescriptioncallsController < ApplicationController
   end
 
   def update
+    @descriptioncall = Descriptioncall.find(params[:id])
+
+    respond_to do |format|
+      if @descriptioncall.update_attributes(params[:descriptioncall])
+        format.html { redirect_to descriptioncalls_path, :notice => 'Cfu was successfully updated.' }
+      else
+        format.html { render :action => "edit" }
+      end
+    end
   end
 end
