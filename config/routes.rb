@@ -1,5 +1,7 @@
 Phone::Application.routes.draw do
 
+  resources :hollydays
+
   get "descriptioncalls/show"
 
 

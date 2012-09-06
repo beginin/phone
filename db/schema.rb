@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120830095801) do
+ActiveRecord::Schema.define(:version => 20120906074707) do
 
   create_table "cfus", :force => true do |t|
     t.string   "namecfu"
@@ -38,6 +38,12 @@ ActiveRecord::Schema.define(:version => 20120830095801) do
   create_table "descriptioncalls", :force => true do |t|
     t.string   "name"
     t.boolean  "fin"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "hollydays", :force => true do |t|
+    t.date     "hollyday"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

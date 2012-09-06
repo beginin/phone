@@ -1,0 +1,23 @@
+<h1>Listing hollydays</h1>
+
+<table>
+  <tr>
+    <th>Hollyday</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @hollydays.each do |hollyday| %>
+  <tr>
+    <td><%= hollyday.hollyday %></td>
+    <td><%= link_to 'Show', hollyday %></td>
+    <td><%= link_to 'Edit', edit_hollyday_path(hollyday) %></td>
+    <td><%= link_to 'Destroy', hollyday, :method => :delete, :data => { :confirm => 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Hollyday', new_hollyday_path %>

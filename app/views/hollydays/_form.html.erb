@@ -1,0 +1,21 @@
+<%= form_for(@hollyday) do |f| %>
+  <% if @hollyday.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@hollyday.errors.count, "error") %> prohibited this hollyday from being saved:</h2>
+
+      <ul>
+      <% @hollyday.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :hollyday %><br />
+    <%= f.date_select :hollyday %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
