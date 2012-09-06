@@ -6,7 +6,7 @@ class Sim < ActiveRecord::Base
   validates :sirealnumber, :length => { :in => 18..20 }, :numericality => { :only_integer => true }
   validates :sirealnumber, :uniqueness => true
   def self.freesims_id
-    simactive = Simnumlog.select(:sim_id).joins(:simperiod).where("'simperiods'.'dateout'  IS NULL ")
+    simactive = Simnumlog.select(:sim_id).joins(:simperiod).where("simperiods.dateout  IS NULL ")
     sa_id=Array.new
     simactive.find_each do |d|
       sa_id=sa_id+[d.sim_id]
@@ -20,7 +20,7 @@ class Sim < ActiveRecord::Base
   end
 
   def self.notusesim_id
-    simactive = Userlog.select(:sim_id).joins(:userperiod).where("'userperiods'.'dateout'  IS NULL ")
+    simactive = Userlog.select(:sim_id).joins(:userperiod).where("userperiods.dateout  IS NULL ")
     sa_id=Array.new
     simactive.find_each do |d|
       sa_id=sa_id+[d.sim_id]

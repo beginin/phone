@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120906074707) do
+ActiveRecord::Schema.define(:version => 20120906080607) do
 
   create_table "cfus", :force => true do |t|
     t.string   "namecfu"
@@ -103,12 +103,13 @@ ActiveRecord::Schema.define(:version => 20120906074707) do
   end
 
   create_table "tnumbers", :force => true do |t|
-    t.integer  "voicenumber"
     t.integer  "sortnumber"
     t.boolean  "block"
     t.integer  "tarif_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+    t.integer  "BIGINT"
+    t.integer  "voicenumber", :limit => 8
   end
 
   create_table "typecalls", :force => true do |t|

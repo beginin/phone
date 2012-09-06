@@ -10,7 +10,7 @@ class Tnumber < ActiveRecord::Base
   validates :sortnumber, :uniqueness => true, :length => { :is => 7 }, :allow_blank => true
   validates :tarif_id, :presence => true
   def self.freetnumbers_id
-    tnumberactive = Simnumlog.select(:tnumber_id).joins(:simperiod).where("'simperiods'.'dateout'  IS NULL ")
+    tnumberactive = Simnumlog.select(:tnumber_id).joins(:simperiod).where("\"simperiods\".\"dateout\"  IS NULL ")
     ta_id=Array.new
     tnumberactive.find_each do |d|
       ta_id=ta_id+[d.tnumber_id]
