@@ -1,5 +1,9 @@
 Phone::Application.routes.draw do
 
+  get "report/index"
+
+  get "report/showload"
+
   resources :hollydays
 
   get "descriptioncalls/show"
