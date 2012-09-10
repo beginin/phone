@@ -1,2 +1,38 @@
 <h1>Report#showload</h1>
-<p>Find me in app/views/report/showload.html.erb</p>
+<table>
+  <tr>
+    <th>tnumber</th>
+    <th>tarifname</th>
+    <th>uprsum</th>
+    <th>finsum</th>
+    <th>secondname</th>
+    <th>firstname</th>
+    <th>midlename</th>
+    <th>namecfu</th>
+    <th>money</th>
+    <th>datein</th>
+    <th>dateout</th>
+    <th>timein</th>
+    <th>timeout</th>
+  </tr>
+
+<% @report1.each do |r| %>
+  <tr>
+    <td><%= r["tnumber"] %></td>
+    <td><%= r["tarifname"] %></td>
+    <td><%= r["uprsum"] %></td>
+    <td><%= r["finsum"] %></td>
+    <td><%= r["secondname"] %></td>
+    <td><%= r["firstname"] %></td>
+    <td><%= r["midlename"] %></td>
+    <td><%= r["namecfu"] %></td>
+    <td><%= r["money"] %></td>
+    <td><%= r["datein"] %></td>
+    <td><%= r["dateout"] %></td>
+    <td><%= r["timein"] %></td>
+    <td><%= r["timeout"] %></td>   
+  </tr>
+<% end %>
+</table>
+
+<br />
