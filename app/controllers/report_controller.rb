@@ -1,9 +1,9 @@
 class ReportController < ApplicationController
   def index
-  	@report1 = Load.find(:all , :order => "id DESC" )
+  	@loads = Load.find(:all , :order => "id DESC" )
   end
 
-  def showload
-  	@report1 = Report.rep
+  def show
+  	@report1 = Report.rep(params[:id])
   end
 end

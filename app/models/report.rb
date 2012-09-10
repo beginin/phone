@@ -9,7 +9,7 @@ class Report < ActiveRecord::Base
     	columns << ActiveRecord::ConnectionAdapters::Column.new(name.to_s, default, sql_type.to_s, null)
  	end
 
- 	def self.rep
+ 	def self.rep(id = "1")
  		sql = "WITH simnumlogs_full AS (
 			SELECT * FROM simnumlogs
 			LEFT JOIN simperiods ON  (simnumlogs.simperiod_id = simperiods.id)
@@ -36,6 +36,7 @@ class Report < ActiveRecord::Base
 			(colllogs.date <= simnumlogs_full.dateout OR simnumlogs_full.dateout IS NULL) )
 			LEFT JOIN userlogs_full ON (simnumlogs_full.sim_id = userlogs_full.sim_id AND colllogs.date >= userlogs_full.datein AND 
 			(colllogs.date <= userlogs_full.dateout OR userlogs_full.dateout IS NULL) )
+			WHERE colllogs.load_id = " + id + "
 			GROUP BY colllogs.tnumber,tnumbers_full.tarifname ,tnumberid , userlogid 
 			),
 			fin AS (
@@ -50,15 +51,17 @@ class Report < ActiveRecord::Base
 			AND colllogs.date NOT IN (SELECT hollyday FROM hollydays)
 			AND \"time\"(colllogs.date) > userlogs_full.timein
 			AND \"time\"(colllogs.date) < userlogs_full.timeout
+			AND colllogs.load_id = " + id + "
 			GROUP BY colllogs.tnumber ,tnumbers_full.id , userlogs_full.user_id
 			)
 
-			SELECT upr.tnumber,upr.tarifname,upr.sum as uprsum,fin.sum as sumfin , userlogs_full.secondname,userlogs_full.firstname,userlogs_full.midlename,
+			SELECT upr.tnumber,upr.tarifname,upr.sum as totalsum,upr.sum - userlogs_full.money as uprsum, fin.sum as finsum , userlogs_full.secondname,userlogs_full.firstname,userlogs_full.midlename,
 			userlogs_full.namecfu,userlogs_full.money,userlogs_full.datein,userlogs_full.dateout,userlogs_full.timein,
 			userlogs_full.timeout
 			FROM upr
 			LEFT JOIN fin ON (fin.tnumber = upr.tnumber)
 			LEFT JOIN userlogs_full ON (upr.userlogid = userlogs_full.userlogid)
+
 			"
 		#self.find_by_sql(sql)
 		ActiveRecord::Base.connection.select_all( sql )

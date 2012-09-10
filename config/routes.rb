@@ -1,8 +1,8 @@
 Phone::Application.routes.draw do
 
-  get "report/index"
+  #get "report/index"
 
-  get "report/showload"
+  #get "report/showload"
 
   resources :hollydays
 
@@ -28,6 +28,7 @@ Phone::Application.routes.draw do
 
   resources :tarifs
   resources :descriptioncalls
+  resources :report
   #match '/descriptioncalls/' => 'descriptioncalls#index',:as => :descriptioncall , :via => :get
   #match '/descriptioncalls/:id' =>  'descriptioncalls#edit', :as => :edit_descriptioncall , :via => :get
   #match '/descriptioncalls/:id' => 'descriptioncalls#update', :via => :put
