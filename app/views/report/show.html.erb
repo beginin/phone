@@ -19,6 +19,7 @@
 
 <% @report1.each do |r| %>
   <tr>
+    <% r["uprsum"] = "0" if r["uprsum"].to_d < 0 %>
     <td><%= r["tnumber"] %></td>
     <td><%= r["tarifname"] %></td>
     <td><%= r["totalsum"] %></td>
