@@ -55,11 +55,12 @@ class Report < ActiveRecord::Base
 			GROUP BY colllogs.tnumber ,tnumbers_full.id , userlogs_full.user_id
 			)
 
-			SELECT upr.tnumber,upr.tarifname , upr.sum * 1.18 as totalsum,upr.sum * 1.18 - userlogs_full.money as uprsum, fin.sum * 1.18 as finsum , userlogs_full.secondname,userlogs_full.firstname,userlogs_full.midlename,
+			SELECT upr.tnumber,upr.tarifname , upr.sum * 1.18 as totalsum,upr.sum * 1.18 - userlogs_full.money as uprsum, 
+			fin.sum * 1.18 as finsum , userlogs_full.secondname,userlogs_full.firstname,userlogs_full.midlename,
 			userlogs_full.namecfu,userlogs_full.money,userlogs_full.datein,userlogs_full.dateout,userlogs_full.timein,
 			userlogs_full.timeout
 			FROM upr
-			LEFT JOIN fin ON (fin.tnumber = upr.tnumber)
+			LEFT JOIN fin ON (fin.user_id = upr.userlogid)
 			LEFT JOIN userlogs_full ON (upr.userlogid = userlogs_full.userlogid)
 
 			"
