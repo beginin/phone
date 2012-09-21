@@ -1,6 +1,7 @@
 <h1>Report#showload</h1>
 <table>
   <tr>
+    <th>Месяц</th>
     <th>tnumber</th>
     <th>tarifname</th>
     <th>totalsum</th>
@@ -20,10 +21,11 @@
 <% @report1.each do |r| %>
   <tr>
     <% r["uprsum"] = "0" if r["uprsum"].to_d < 0 if r["uprsum"].present? %>
+    <td><%= Time.parse(r["date_month"]).strftime("%B")%></td>
     <td><%= r["tnumber"] %></td>
     <td><%= r["tarifname"] %></td>
     <td><%= r["totalsum"] %></td>
-    <td><%= r["uprsum"] %></td>
+    <td><%= r["uprsum"].to_s  %></td>
     <td><%= r["finsum"] %></td>
     <td><%= r["secondname"] %></td>
     <td><%= r["firstname"] %></td>

@@ -29,7 +29,7 @@ class Report < ActiveRecord::Base
 			LEFT JOIN tarifs  ON (tnumbers.tarif_id = tarifs.id)
 			),
 			upr AS (
-			SELECT colllogs.tnumber,tnumbers_full.tarifname , tnumbers_full.id as tnumberid ,userlogs_full.userlogid ,SUM(colllogs.coast)
+			SELECT date_trunc( 'month',colllogs.date) as date_month, colllogs.tnumber,tnumbers_full.tarifname , tnumbers_full.id as tnumberid ,userlogs_full.userlogid ,SUM(colllogs.coast)
 			FROM colllogs 
 			LEFT JOIN tnumbers_full ON (colllogs.tnumber = tnumbers_full.voicenumber)
 			LEFT JOIN simnumlogs_full ON (tnumbers_full.id = simnumlogs_full.tnumber_id AND colllogs.date >= simnumlogs_full.datein AND 
@@ -37,10 +37,10 @@ class Report < ActiveRecord::Base
 			LEFT JOIN userlogs_full ON (simnumlogs_full.sim_id = userlogs_full.sim_id AND colllogs.date >= userlogs_full.datein AND 
 			(colllogs.date <= userlogs_full.dateout OR userlogs_full.dateout IS NULL) )
 			WHERE colllogs.load_id = " + id + "
-			GROUP BY colllogs.tnumber,tnumbers_full.tarifname ,tnumberid , userlogid 
+			GROUP BY date_month, colllogs.tnumber,tnumbers_full.tarifname ,tnumberid , userlogid 
 			),
 			fin AS (
-			SELECT colllogs.tnumber, tnumbers_full.id,userlogs_full.user_id,SUM(colllogs.coast)
+			SELECT date_trunc( 'month',colllogs.date) as date_month_fin, colllogs.tnumber, tnumbers_full.id,userlogs_full.user_id,SUM(colllogs.coast)
 			FROM colllogs 
 			LEFT JOIN tnumbers_full ON (colllogs.tnumber = tnumbers_full.voicenumber)
 			LEFT JOIN simnumlogs_full ON (tnumbers_full.id = simnumlogs_full.tnumber_id AND colllogs.date >= simnumlogs_full.datein AND 
@@ -52,21 +52,50 @@ class Report < ActiveRecord::Base
 			AND \"time\"(colllogs.date) > userlogs_full.timein
 			AND \"time\"(colllogs.date) < userlogs_full.timeout
 			AND colllogs.load_id = " + id + "
-			GROUP BY colllogs.tnumber ,tnumbers_full.id , userlogs_full.user_id
+			GROUP BY date_month_fin, colllogs.tnumber ,tnumbers_full.id , userlogs_full.user_id
 			)
 
-			SELECT upr.tnumber,upr.tarifname , upr.sum * 1.18 as totalsum,upr.sum * 1.18 - userlogs_full.money as uprsum, 
+			SELECT  date_month ,upr.tnumber,upr.tarifname , upr.sum * 1.18 as totalsum,upr.sum * 1.18 - userlogs_full.money as uprsum, 
 			fin.sum * 1.18 as finsum , userlogs_full.secondname,userlogs_full.firstname,userlogs_full.midlename,
 			userlogs_full.namecfu,userlogs_full.money,userlogs_full.datein,userlogs_full.dateout,userlogs_full.timein,
 			userlogs_full.timeout
 			FROM upr
-			LEFT JOIN fin ON (fin.user_id = upr.userlogid)
+			LEFT JOIN fin ON (fin.user_id = upr.userlogid AND upr.date_month = fin.date_month_fin )
 			LEFT JOIN userlogs_full ON (upr.userlogid = userlogs_full.userlogid)
 
 			"
-		#self.find_by_sql(sql)
-		ActiveRecord::Base.connection.select_all( sql )
- 		
+		self.find_by_sql(sql)
+		mass = ActiveRecord::Base.connection.select_all( sql )
+		mass.each do |r|
+			datein=Time.parse(r["date_month"]).beginning_of_month
+			if r["datein"].present?
+				if Time.parse(r["datein"]) > Time.parse(r["date_month"])
+					datein = Time.parse(r["datein"]) 
+				else 
+					datein = Time.parse(r["date_month"])
+				end
+			end
+
+			dateout=Time.parse(r["date_month"]).end_of_month
+			if r["dateout"].present?
+				if Time.parse(r["dateout"]).month == Time.parse(r["date_month"]).month
+					dateout = Time.parse(r["dateout"]) 
+				else 
+					dateout = Time.parse(r["date_month"]).end_of_month
+				end
+			end
+			if r["datein"].present?
+				days = dateout.day - datein.day + 1
+				days_in_month =Time.parse(r["date_month"]).end_of_month.day 		
+				r["uprsum"] = r["totalsum"].to_d - (days.to_f/days_in_month)*r["money"].to_d
+				r["uprsum"] = r["uprsum"].round 2
+				
+				#r["uprsum"] = ((days.to_f/days_in_month)*r["money"].to_d).to_s
+			end
+			r["totalsum"] = r["totalsum"].to_d.round 2 if r["totalsum"].present?
+			r["finsum"] = r["finsum"].to_d.round 2 if r["finsum"].present?
+		end
+		mass
  	end
  
   	# Manually define the columns used by this model

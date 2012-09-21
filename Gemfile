@@ -42,4 +42,7 @@ gem 'russian'
 
 # To use debugger
 # gem 'ruby-debug'
-gem 'activerecord-import'
+#gem 'activerecord-import'
+#gem 'paperclip', "~> 3.0"
+gem 'spreadsheet'
+#gem 'roo'
