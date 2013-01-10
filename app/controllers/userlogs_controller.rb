@@ -88,7 +88,7 @@ class UserlogsController < ApplicationController
   def endperiod
     @userlog=Userlog.find(params[:id])
     @userlog.userperiod.endperiod
-    logger.debug "Привет #{@userlog.userperiod.endperiod}"
+    #logger.debug "Привет #{@userlog.userperiod.endperiod}"
     @userlog.userperiod.save
     respond_to do |format|
       format.html { redirect_to userlogs_url }

@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -103,13 +104,12 @@ ActiveRecord::Schema.define(:version => 20120906080607) do
   end
 
   create_table "tnumbers", :force => true do |t|
+    t.integer  "voicenumber", :limit => 8
     t.integer  "sortnumber"
     t.boolean  "block"
     t.integer  "tarif_id"
     t.datetime "created_at",               :null => false
     t.datetime "updated_at",               :null => false
-    t.integer  "BIGINT"
-    t.integer  "voicenumber", :limit => 8
   end
 
   create_table "typecalls", :force => true do |t|

@@ -12,7 +12,7 @@
 development:
   adapter: postgresql
   host: localhost
-  username: postgres
+  username: phone
   password: student
   database: phone_development
   schema_search_path: public

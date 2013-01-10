@@ -29,40 +29,42 @@ class Report < ActiveRecord::Base
 			LEFT JOIN tarifs  ON (tnumbers.tarif_id = tarifs.id)
 			),
 			upr AS (
-			SELECT date_trunc( 'month',colllogs.date) as date_month, colllogs.tnumber,tnumbers_full.tarifname , tnumbers_full.id as tnumberid ,userlogs_full.userlogid ,SUM(colllogs.coast)
+			SELECT date_trunc( 'month',colllogs.date) as date_month, colllogs.tnumber,tnumbers_full.tarifname , tnumbers_full.id as tnumberid ,userlogs_full.userlogid ,SUM(colllogs.coast),userlogs_full.user_id as upruserid
 			FROM colllogs 
 			LEFT JOIN tnumbers_full ON (colllogs.tnumber = tnumbers_full.voicenumber)
 			LEFT JOIN simnumlogs_full ON (tnumbers_full.id = simnumlogs_full.tnumber_id AND colllogs.date >= simnumlogs_full.datein AND 
-			(colllogs.date <= simnumlogs_full.dateout OR simnumlogs_full.dateout IS NULL) )
+(colllogs.date <= simnumlogs_full.dateout OR simnumlogs_full.dateout IS NULL) )
 			LEFT JOIN userlogs_full ON (simnumlogs_full.sim_id = userlogs_full.sim_id AND colllogs.date >= userlogs_full.datein AND 
 			(colllogs.date <= userlogs_full.dateout OR userlogs_full.dateout IS NULL) )
-			WHERE colllogs.load_id = " + id + "
-			GROUP BY date_month, colllogs.tnumber,tnumbers_full.tarifname ,tnumberid , userlogid 
+			WHERE colllogs.load_id =  " + id + "
+			GROUP BY date_month, colllogs.tnumber,tnumbers_full.tarifname ,tnumberid , userlogid ,upruserid
 			),
+
+
 			fin AS (
-			SELECT date_trunc( 'month',colllogs.date) as date_month_fin, colllogs.tnumber, tnumbers_full.id,userlogs_full.user_id,SUM(colllogs.coast)
+			SELECT date_trunc( 'month',colllogs.date) as date_month_fin, colllogs.tnumber, tnumbers_full.id,userlogs_full.user_id,SUM(colllogs.coast) as fsum
 			FROM colllogs 
 			LEFT JOIN tnumbers_full ON (colllogs.tnumber = tnumbers_full.voicenumber)
 			LEFT JOIN simnumlogs_full ON (tnumbers_full.id = simnumlogs_full.tnumber_id AND colllogs.date >= simnumlogs_full.datein AND 
 			(colllogs.date <= simnumlogs_full.dateout OR simnumlogs_full.dateout IS NULL) )
 			LEFT JOIN userlogs_full ON (simnumlogs_full.sim_id = userlogs_full.sim_id AND colllogs.date >= userlogs_full.datein AND 
 			(colllogs.date <= userlogs_full.dateout OR userlogs_full.dateout IS NULL) )
-			WHERE colllogs.descriptioncall_id NOT IN (SELECT id FROM descriptioncalls WHERE fin = 'true')
-			AND colllogs.date NOT IN (SELECT hollyday FROM hollydays)
-			AND \"time\"(colllogs.date) > userlogs_full.timein
-			AND \"time\"(colllogs.date) < userlogs_full.timeout
-			AND colllogs.load_id = " + id + "
+			WHERE colllogs.descriptioncall_id  IN (SELECT id FROM descriptioncalls WHERE fin = 'true')
+			or date_trunc( 'day',colllogs.date)  IN (SELECT hollyday FROM hollydays)
+			or \"time\"(colllogs.date) < userlogs_full.timein
+			or \"time\"(colllogs.date) > userlogs_full.timeout
+			AND colllogs.load_id =  " + id + "
 			GROUP BY date_month_fin, colllogs.tnumber ,tnumbers_full.id , userlogs_full.user_id
 			)
 
-			SELECT  date_month ,upr.tnumber,upr.tarifname , upr.sum * 1.18 as totalsum,upr.sum * 1.18 - userlogs_full.money as uprsum, 
-			fin.sum * 1.18 as finsum , userlogs_full.secondname,userlogs_full.firstname,userlogs_full.midlename,
+
+			SELECT upr.userlogid, date_month ,upr.tnumber,upr.tarifname , upr.sum * 1.18 as totalsum,upr.sum * 1.18 - userlogs_full.money as uprsum, 
+			fin.fsum * 1.18 as finsum   , userlogs_full.secondname,userlogs_full.firstname,userlogs_full.midlename,
 			userlogs_full.namecfu,userlogs_full.money,userlogs_full.datein,userlogs_full.dateout,userlogs_full.timein,
 			userlogs_full.timeout
 			FROM upr
-			LEFT JOIN fin ON (fin.user_id = upr.userlogid AND upr.date_month = fin.date_month_fin )
+			LEFT JOIN fin ON (fin.user_id = upr.upruserid AND upr.date_month = fin.date_month_fin )
 			LEFT JOIN userlogs_full ON (upr.userlogid = userlogs_full.userlogid)
-
 			"
 		self.find_by_sql(sql)
 		mass = ActiveRecord::Base.connection.select_all( sql )

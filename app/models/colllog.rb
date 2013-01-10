@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Colllog < ActiveRecord::Base
   attr_accessible :tnumber, :base, :coast, :date, :descriptioncall_id, :duration, :load_id, 
   					:tnumber_in, :tnumber_out, :typecall_id, :typeconnect_id, :valuemb,
@@ -13,8 +14,8 @@ class Colllog < ActiveRecord::Base
     #logger.debug "Привет #{puts  YAML::dump(name[/.csv$/].present?)}"
     if name[/.csv$/].present?
       self.cvsupload(upload)
-    elsif name[/.xls$/].present?
-      logger.debug "Загрузили Ексель"
+    elsif name[/.xlsx$/].present?
+      #logger.debug "Загрузили Ексель"
       self.xlsupload(upload)
     end
 
@@ -28,7 +29,7 @@ class Colllog < ActiveRecord::Base
   def self.xlsupload(upload)
     
     #logger.debug "Привет #{puts  YAML::dump(upload['csv'].read)}" 
-    directory = "/home/begininva/test/phone/public/data"
+    directory = "/root/phone/public/data"
     name = upload['csv'].original_filename
     # create the file path
     path = File.join(directory, name)
@@ -36,23 +37,50 @@ class Colllog < ActiveRecord::Base
     File.open(path, "wb") { |f| f.write(upload['csv'].read) }
     
     #content = upload['csv'].read
-    book = Excel.new(path)
+    book = Excelx.new(path)
     book.default_sheet = book.sheets.first
-    logger.debug  book.to_csv.to_s
+    book.to_csv("/tmp/csv.txt")
+    #logger.debug  book.to_csv.to_s
     #sheet0 = book.worksheet('Sheet0')
     #sheet0.each do |row|
     #  break if row[0].nil? # if first cell empty
     #  logger.debug "Привет #{puts  row.join(',')}" 
     #end
+    content=IO.read("/tmp/csv.txt")
+    detection = CharlockHolmes::EncodingDetector.detect(content)
+    utf8_encoded_content = CharlockHolmes::Converter.convert content, detection[:encoding], 'UTF-8'
+    logger.debug "Привет #{utf8_encoded_content}"
+    csvarray = CSV.parse(utf8_encoded_content, :col_sep => ',')
+    #logger.debug "Привет #{csvarray.first[0]}"
+if csvarray.first[0] == "Дата" and  csvarray.first[1] == "Время" and csvarray.first[2] == "Длительность"
+      csvarray.delete(csvarray.first)
+      load=Load.create(:admin => "Admin") 
+      csvarray.each do |row|
+        n=Colllog.new
+        n.tnumber = upload['tnumber']
+        n.date = row[0].gsub("/",".") + " " + row[1]
+        n.duration = row[2]
+        n.coast = row[7].gsub(",",".")
+        n.tnumber_out = row[3]
+        n.tnumber_in = row[6]
+        n.descriptioncall_text = row[4]
+        n.typeconnect_text = row[5]
+        n.base = row[9]
+        n.valuemb = row[8]
+        n.load_id = load.id
+        n.save
+      end  
+    end
   end
 
   def self.cvsupload(upload)
+    require 'csv'
     content = upload['csv'].read
     detection = CharlockHolmes::EncodingDetector.detect(content)
     utf8_encoded_content = CharlockHolmes::Converter.convert content, detection[:encoding], 'UTF-8'
     #logger.debug "Привет #{utf8_encoded_content}"
-    csvarray = FasterCSV.parse(utf8_encoded_content, :col_sep => ';')
-    logger.debug "Привет #{puts csvarray.first[1]}"
+    csvarray = CSV.parse(utf8_encoded_content, :col_sep => ';')
+    #logger.debug "Привет #{puts csvarray.first[1]}"
     if csvarray.first[0] == "Договор" and  csvarray.first[1] == "Группа счетов" and csvarray.first[2] == "Номер телефона"
       csvarray.delete(csvarray.first)
       load=Load.create(:admin => "Admin") 

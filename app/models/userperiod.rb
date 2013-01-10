@@ -6,7 +6,8 @@ class Userperiod < ActiveRecord::Base
   validates :datein, :presence => true
 
   def datein_text 
-  	datein.try (:strftime, "%Y-%m-%d %H:%M")
+  	#datein.try (:strftime, "%Y-%m-%d %H:%M")
+	datein.strftime("%Y-%m-%d %H:%M")
   end
 
   def datein_text=(time)
