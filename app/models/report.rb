@@ -49,10 +49,10 @@ class Report < ActiveRecord::Base
 			(colllogs.date <= simnumlogs_full.dateout OR simnumlogs_full.dateout IS NULL) )
 			LEFT JOIN userlogs_full ON (simnumlogs_full.sim_id = userlogs_full.sim_id AND colllogs.date >= userlogs_full.datein AND 
 			(colllogs.date <= userlogs_full.dateout OR userlogs_full.dateout IS NULL) )
-			WHERE colllogs.descriptioncall_id  IN (SELECT id FROM descriptioncalls WHERE fin = 'true')
+			WHERE (colllogs.descriptioncall_id  IN (SELECT id FROM descriptioncalls WHERE fin = 'true')
 			or date_trunc( 'day',colllogs.date)  IN (SELECT hollyday FROM hollydays)
 			or \"time\"(colllogs.date) < userlogs_full.timein
-			or \"time\"(colllogs.date) > userlogs_full.timeout
+			or \"time\"(colllogs.date) > userlogs_full.timeout)
 			AND colllogs.load_id =  " + id + "
 			GROUP BY date_month_fin, colllogs.tnumber ,tnumbers_full.id , userlogs_full.user_id
 			)
