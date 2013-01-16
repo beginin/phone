@@ -1,5 +1,7 @@
 Phone::Application.routes.draw do
 
+  resources :simlogs
+
   #get "report/index"
 
   #get "report/showload"
