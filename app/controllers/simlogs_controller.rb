@@ -24,7 +24,9 @@ class SimlogsController < ApplicationController
   # GET /simlogs/new
   # GET /simlogs/new.json
   def new
-    @simlog = Simlog.new
+    @period = Period.new
+    @period.simlog.build
+    @period.datein = Time.zone.now
 
     respond_to do |format|
       format.html # new.html.erb
@@ -40,11 +42,12 @@ class SimlogsController < ApplicationController
   # POST /simlogs
   # POST /simlogs.json
   def create
-    @simlog = Simlog.new(params[:simlog])
-
+    #logger.debug params
+    @period = Period.new(params[:period])
+    
     respond_to do |format|
-      if @simlog.save
-        format.html { redirect_to @simlog, notice: 'Simlog was successfully created.' }
+      if @period.save
+        format.html { redirect_to Simlog, notice: 'Simlog was successfully created.' }
         format.json { render json: @simlog, status: :created, location: @simlog }
       else
         format.html { render action: "new" }
@@ -52,6 +55,10 @@ class SimlogsController < ApplicationController
       end
     end
   end
+
+
+
+
 
   # PUT /simlogs/1
   # PUT /simlogs/1.json

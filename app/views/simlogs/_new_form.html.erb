@@ -1,0 +1,30 @@
+<%= form_for @period, :url => '/simlogs/', userlogs_path => false do |cf| %>
+
+  <%= cf.fields_for :simlog do |f| %>
+  <div class="field">
+    <%= f.label :sim_id %><br />
+    <%= f.collection_select(:sim_id, Sim.where(:id =>Sim.notusesim_id), :id, :sirealnumber ) %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br />
+    <%= f.collection_select(:user_id, User.all, :id, :secondname ) %>
+  </div>
+  <div class="field">
+    <%= f.label :pda %><br />
+    <%= f.check_box :pda %>
+  </div>
+  <% end %>
+  
+
+  <div class="field">
+    <%= cf.label :datein_text %><br />
+    <%= cf.text_field :datein_text %>
+  </div>
+  <div class="actions">
+    <%= cf.submit %>
+  </div>
+<% end %>
+
+
+
+
